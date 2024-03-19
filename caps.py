@@ -1,11 +1,34 @@
 from prettytable import PrettyTable
-
+#nested/2d list
 karyawan=[
-    ['001','bagas', 20, 'male', 10000],
-    ['002','budi', 25, 'male', 10000],
-    ['003','lucy', 20, 'female', 10000]
+    ['00001','bagas', 20, 'male', 10000],
+    ['00002','budi', 25, 'male', 30000],
+    ['00003','lucy', 20, 'female', 20000]
          ]
-
+#function/def
+def mainmenu(x):
+    #while(true) under function
+    while(True):
+        print('Database karyawan \n\nlist menu:\n1.menampilkan daftar karyawan\n2.memasukkan data karyawan\n3.mengubah data karyawan\n4.menghapus data karyawan\n5.exit')
+        menu=input('masukan angka menu: ') #input
+        if(menu.isdigit()==True) and len(menu)==1:  #conditional + isdigit + len
+            menu=int(menu) #typecasting
+        if menu==1: 
+            display(x)
+            break
+        elif menu==2:
+            add(x)
+            break
+        elif menu==3:
+            change(x)
+            break
+        elif menu==4:
+            fire(x)
+            break
+        elif menu==5:
+            break
+        else:
+            print('\ninput invalid\n')
 
 def display(x):
     while(True):
@@ -15,11 +38,11 @@ def display(x):
         if menu.isdigit()==True and len(menu)==1:
             menu=int(menu)
         if menu==1:
-            table = PrettyTable()
+            table = PrettyTable() #pretty table module + deklaration
             table.field_names = ["ID", "NAMA", "UMUR", "JENIS KELAMIN", 'GAJI']
 
             if len(x)!=0:
-                for i in range(len(x)):
+                for i in range(len(x)): #for loop
                     table.add_row([x[i][0],x[i][1],x[i][2],x[i][3],x[i][4]])
                 print (table)
             else:
@@ -28,10 +51,10 @@ def display(x):
             if  len(x)==0:
                 print('\ndata empty\n')
             else:
-                search=input('masukkan ID karyawan(3 digits): ')
-                while search.isdigit()==False or len(search)!=3:
+                search=input('masukkan ID karyawan(5 digits): ')
+                while search.isdigit()==False or len(search)!=5:
                     print('\nFormat ID salah\n')
-                    search=input('masukkan ID karyawan(3 digits): ')
+                    search=input('masukkan ID karyawan(5 digits): ')
                 for i in range(len(x)):
                     if len(x)==0:
                         print('\ndata empty\n')
@@ -125,9 +148,7 @@ def display(x):
             mainmenu(x)
             break
         else:
-            print('\ninput invalid\n')
-            
-    
+            print('\ninput invalid\n')  
 
 def add(x):
     while(True):
@@ -138,7 +159,7 @@ def add(x):
         
         if menu==1:
                 id=input('masukkan ID karyawan terbaru(3digit): ')
-                while id.isdigit()==False or len(id)!=3:
+                while id.isdigit()==False or len(id)!=5:
                     print('Format ID salah')
                     id=input('masukkan ID karyawan terbaru(3digit): ')
                 if len(x)==0:
@@ -228,9 +249,7 @@ def add(x):
             mainmenu(x)
             break
         else:
-            print('\ninput invalid\n')
-
-    
+            print('\ninput invalid\n')    
 
 def change(x):
     while(True):
@@ -243,10 +262,10 @@ def change(x):
             if  len(x)==0:
                 print('\ndata empty\n')
             else:
-                search=input('masukkan ID karyawan(3 digits): ')
-                while search.isdigit()==False or len(search)!=3:
+                search=input('masukkan ID karyawan(5 digits): ')
+                while search.isdigit()==False or len(search)!=5:
                     print('Format ID salah')
-                    search=input('masukkan ID karyawan(3 digits): ')
+                    search=input('masukkan ID karyawan(5 digits): ')
                 for i in range(len(x)):
                     if(x[i][0]==search):
                         print(f'\nID={x[i][0]}\nnama={x[i][1]}\numur={x[i][2]}\njenis kelamin={x[i][3]}\ngaji={x[i][4]}')
@@ -257,29 +276,12 @@ def change(x):
                         if confirm=='Y':
                             pick= input('masukkan data yang akan diganti(id/nama/umur/jenis kelamin/gaji): ')
                             pick=pick.lower()
-                            while (pick.isalpha()!=True) or (pick!='id' and pick!='nama' and pick!='umur' and pick!='jenis kelamin' and pick!='gaji'):
-                                pick=input('input salah\nmasukkan data yang akan diganti(id/nama/umur/jenis kelamin/gaji): ')
+                            while (pick.isalpha()!=True) or (pick!='nama' and pick!='umur' and pick!='jenis kelamin' and pick!='gaji'):
+                                pick=input('input salah\nmasukkan data yang akan diganti(nama/umur/jenis kelamin/gaji): ')
                                 pick=pick.lower()
-                            if pick=='id':
-                                id=input('masukkan ID karyawan terbaru(3digit): ')
-                                while id.isdigit()==False or len(id)!=3:
-                                    print('Format ID salah')
-                                    id=input('masukkan ID karyawan terbaru(3digit): ')
-                                print(f'ubah {x[i][0]} jadi {id}')
-                                confirm2=input('simpan data berikut?(Y/N) ')
-                                while confirm2.isalpha()!=True or len(confirm)!=1:
-                                    confirm2=input('input salah\nsimpan data berikut?(Y/N) ')
-                                confirm2=confirm2.upper()
-                                if confirm2=='Y':
-                                    x[i][0]=id
-                                    print('\ndata telah diganti\n')
-                                    break
-                                else:
-                                    print('\noperasi di batalkann\n')
-                                    break 
-                            elif pick=='nama':
+                            if pick=='nama':
                                 nama=input('masukkan nama karyawan terbaru: ')
-                                while(nama.replace(' ','').isalpha()==False):
+                                while(nama.replace(' ','').isalpha()==False): #replace
                                     nama=input('input salah\nmasukkan nama karyawan terbaru: ')
                                 print(f'ubah {x[i][1]} jadi {nama}')
                                 confirm2=input('simpan data berikut?(Y/N) ')
@@ -383,10 +385,10 @@ def fire(x):
             if  len(x)==0:
                 print('\ndata empty\n')
             else: 
-                search=input('masukkan ID karyawan(3 digits): ')
-                while search.isdigit()==False or len(search)!=3:
+                search=input('masukkan ID karyawan(5 digits): ')
+                while search.isdigit()==False or len(search)!=5:
                     print('Format ID salah')
-                    search=input('masukkan ID karyawan(3 digits): ')
+                    search=input('masukkan ID karyawan(5 digits): ')
                 for i in range(len(x)):
                     if(x[i][0]==search):
                         print(f'ID={x[i][0]}\nnama={x[i][1]}\numur={x[i][2]}\njenis kelamin={x[i][3]}\ngaji={x[i][4]}')
@@ -410,26 +412,5 @@ def fire(x):
         else:
             print('\ninput invalid\n')
 
-def mainmenu(x):
-    while(True):
-        print('Database karyawan \n\nlist menu:\n1.menampilkan daftar karyawan\n2.memasukkan data karyawan\n3.mengubah data karyawan\n4.menghapus data karyawan\n5.exit')
-        menu=input('masukan angka menu: ')
-        if(menu.isdigit()==True) and len(menu)==1:
-            menu=int(menu)
-        if menu==1:
-            display(x)
-            break
-        elif menu==2:
-            add(x)
-            break
-        elif menu==3:
-            change(x)
-            break
-        elif menu==4:
-            fire(x)
-            break
-        elif menu==5:
-            break
-        else:
-            print('\ninput invalid\n')
+
 mainmenu(karyawan)
